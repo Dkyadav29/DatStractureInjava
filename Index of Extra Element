@@ -1,0 +1,70 @@
+
+Index of Extra Element
+Given two sorted arrays of distinct elements. There is only 1 difference between the arrays. First array has one element extra added in between. Find the index of the extra element.
+
+7
+2 4 6 8 9 10 12
+2 4 6 8 10 12
+
+
+
+/* package codechef; // don't place package name! */
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+/* Name of the class has to be "Main" only if the class is public. */
+public class Main
+{
+    public static int extratElement(int[] A1, int[] A2){
+        int size = A1.length;
+        // handel corner cases 
+        if(size == 1 ){
+            return 0;
+        }
+        if(A1[0] != A2[0]){
+            return 0;
+        }
+        // USE BINARY SEARCH 
+        
+        int si = 0;
+        int ei = size - 1;
+        
+        while(si <= ei){
+            int mid = (si + ei)/ 2;
+            
+            // if(A1[mid] != A2[mid] && A1[mid - 1] == A2[mid - 1]){
+            //     return mid;
+            // }
+            if((mid==0) || (mid==size-1) || (A1[mid] != A2[mid] && A1[mid - 1] == A2[mid - 1])){
+
+                return mid;
+
+            }
+            else if(A1[mid] == A2[mid]){
+                si = mid + 1;
+            }
+            else{
+                ei = mid -1;
+            }
+        }
+        return -1;
+        
+    }
+    public static void main (String[] args) throws java.lang.Exception
+    {
+        // your code goes here
+        Scanner sc = new Scanner(System.in); 
+        int N = sc.nextInt();
+        int[] A1 = new int[N];
+        int[] A2 = new int[N - 1 ];
+        for(int i = 0 ; i < N; i++){
+            A1[i] = sc.nextInt();
+        }
+        for(int j = 0 ; j < N-1; j++ ){
+            A2[j] = sc.nextInt();
+        }
+        System.out.println(extratElement(A1,A2));
+    }
+}
+
