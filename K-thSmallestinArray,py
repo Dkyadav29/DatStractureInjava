@@ -1,0 +1,54 @@
+Given an array arr[] of size N having no duplicates and an integer K, the task is to find the Kth smallest element from the array in constant extra space and the array can’t be modified.
+
+Input Format
+The first line contains , total number of elements
+The second line contains space-separated integers
+The third line contains
+Constraints
+
+Output Format
+
+Print the k-smallest element
+Sample Input 1
+
+6
+7 10 4 3 20 15
+4
+
+Sample Output 1
+
+10
+
+just logic
+def count_smaller_equal(arr, mid):
+    count = 0
+    for num in arr:
+        if num <= mid:
+            count += 1
+    return count
+
+def kth_smallest(arr, k):
+    low, high = min(arr), max(arr)
+    
+    while low < high:
+        mid = low + (high - low) // 2
+        count = count_smaller_equal(arr, mid)
+        
+        if count < k:
+            low = mid + 1
+        else:
+            high = mid
+    
+    return low
+
+# Input
+N = int(input())
+arr = list(map(int, input().split()))
+K = int(input())
+
+# Find the Kth smallest element
+result = kth_smallest(arr, K)
+
+# Output
+print(result)
+
